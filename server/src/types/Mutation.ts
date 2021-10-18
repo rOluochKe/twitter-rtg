@@ -115,105 +115,111 @@ export const Mutation = mutationType({
 				})
 			}
 		})
-		t.field("likeTweet", {
-			type: "LikedTweet",
-			args: {
-				id: intArg()
-			},
-			resolve: (parent, { id }, ctx) => {
-				const userId = getUserId(ctx)
-				if (!userId) throw new Error("Could not authenticate user.")
-				return ctx.prisma.likedTweet.create({
-					data: {
-						tweet: { connect: { id: Number(id) } },
-						User: { connect: { id: Number(userId) } }
-					}
-				})
-			}
-		})
-		t.field("deleteLike", {
-			type: "LikedTweet",
-			args: {
-				id: intArg({ nullable: false })
-			},
-			resolve: (parent, { id }, ctx) => {
-				const userId = getUserId(ctx)
-				if (!userId) throw new Error("Could not authenticate user.")
-				return ctx.prisma.likedTweet.delete({
-					where: { id: id }
-				})
-			}
-		})
-		t.field("createComment", {
-			type: "Comment",
-			args: {
-				content: stringArg({ nullable: false }),
-				id: intArg({ nullable: false })
-			},
-			resolve: (parent, { content, id }, ctx) => {
-				const userId = getUserId(ctx)
-				if (!userId) throw new Error("Could not authenticate user.")
-				return ctx.prisma.comment.create({
-					data: {
-						content,
-						User: { connect: { id: Number(userId) } },
-						Tweet: { connect: { id: Number(id) } }
-					}
-				})
-			}
-		})
-		t.field("createReply", {
-			type: "Comment",
-			args: {
-				content: stringArg({ nullable: false }),
-				id: intArg({ nullable: false }),
-				commentId: intArg()
-			},
-			resolve: (parent, { content, id, commentId }, ctx) => {
-				const userId = getUserId(ctx)
-				if (!userId) throw new Error("Could not authenticate user.")
-				return ctx.prisma.comment.create({
-					data: {
-						content,
-						User: { connect: { id: Number(userId) } },
-						Tweet: { connect: { id: Number(id) } },
-						Comment: { connect: { id: Number(commentId) } }
-					}
-				})
-			}
-		})
-		t.field("follow", {
-			type: "Following",
-			args: {
-				name: stringArg({ nullable: false }),
-				followId: intArg({ nullable: false }),
-				avatar: stringArg({ nullable: false })
-			},
-			resolve: (parent, { name, followId, avatar }, ctx) => {
-				const userId = getUserId(ctx)
-				if (!userId) throw new Error("Could not authenticate user.")
-				return ctx.prisma.following.create({
-					data: {
-						name,
-						avatar,
-						followId,
-						User: { connect: { id: Number(userId) } }
-					}
-				})
-			}
-		})
-		t.field("deleteFollow", {
-			type: "Following",
-			args: {
-				id: intArg({ nullable: false })
-			},
-			resolve: (parent, { id }, ctx) => {
-				const userId = getUserId(ctx)
-				if (!userId) throw new Error("Could not authenticate user.")
-				return ctx.prisma.following.delete({
-					where: { id: id }
-				})
-			}
-		})
+
+		// t.field("likeTweet", {
+		// 	type: "LikedTweet",
+		// 	args: {
+		// 		id: intArg()
+		// 	},
+		// 	resolve: (parent, { id }, ctx) => {
+		// 		const userId = getUserId(ctx)
+		// 		if (!userId) throw new Error("Could not authenticate user.")
+		// 		return ctx.prisma.likedTweet.create({
+		// 			data: {
+		// 				tweet: { connect: { id: Number(id) } },
+		// 				User: { connect: { id: Number(userId) } }
+		// 			}
+		// 		})
+		// 	}
+		// })
+
+		// t.field("deleteLike", {
+		// 	type: "LikedTweet",
+		// 	args: {
+		// 		id: intArg({ nullable: false })
+		// 	},
+		// 	resolve: (parent, { id }, ctx) => {
+		// 		const userId = getUserId(ctx)
+		// 		if (!userId) throw new Error("Could not authenticate user.")
+		// 		return ctx.prisma.likedTweet.delete({
+		// 			where: { id: id }
+		// 		})
+		// 	}
+		// })
+
+		// t.field("createComment", {
+		// 	type: "Comment",
+		// 	args: {
+		// 		content: stringArg({ nullable: false }),
+		// 		id: intArg({ nullable: false })
+		// 	},
+		// 	resolve: (parent, { content, id }, ctx) => {
+		// 		const userId = getUserId(ctx)
+		// 		if (!userId) throw new Error("Could not authenticate user.")
+		// 		return ctx.prisma.comment.create({
+		// 			data: {
+		// 				content,
+		// 				User: { connect: { id: Number(userId) } },
+		// 				Tweet: { connect: { id: Number(id) } }
+		// 			}
+		// 		})
+		// 	}
+		// })
+
+		// t.field("createReply", {
+		// 	type: "Comment",
+		// 	args: {
+		// 		content: stringArg({ nullable: false }),
+		// 		id: intArg({ nullable: false }),
+		// 		commentId: intArg()
+		// 	},
+		// 	resolve: (parent, { content, id, commentId }, ctx) => {
+		// 		const userId = getUserId(ctx)
+		// 		if (!userId) throw new Error("Could not authenticate user.")
+		// 		return ctx.prisma.comment.create({
+		// 			data: {
+		// 				content,
+		// 				User: { connect: { id: Number(userId) } },
+		// 				Tweet: { connect: { id: Number(id) } },
+		// 				Comment: { connect: { id: Number(commentId) } }
+		// 			}
+		// 		})
+		// 	}
+		// })
+
+		// t.field("follow", {
+		// 	type: "Following",
+		// 	args: {
+		// 		name: stringArg({ nullable: false }),
+		// 		followId: intArg({ nullable: false }),
+		// 		avatar: stringArg({ nullable: false })
+		// 	},
+		// 	resolve: (parent, { name, followId, avatar }, ctx) => {
+		// 		const userId = getUserId(ctx)
+		// 		if (!userId) throw new Error("Could not authenticate user.")
+		// 		return ctx.prisma.following.create({
+		// 			data: {
+		// 				name,
+		// 				avatar,
+		// 				followId,
+		// 				User: { connect: { id: Number(userId) } }
+		// 			}
+		// 		})
+		// 	}
+		// })
+
+		// t.field("deleteFollow", {
+		// 	type: "Following",
+		// 	args: {
+		// 		id: intArg({ nullable: false })
+		// 	},
+		// 	resolve: (parent, { id }, ctx) => {
+		// 		const userId = getUserId(ctx)
+		// 		if (!userId) throw new Error("Could not authenticate user.")
+		// 		return ctx.prisma.following.delete({
+		// 			where: { id: id }
+		// 		})
+		// 	}
+		// })
 	}
 })
