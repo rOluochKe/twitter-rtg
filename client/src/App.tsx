@@ -7,6 +7,7 @@ import IsAuthenticated from "./components/IsAuthenticated"
 import Landing from "./components/Landing"
 import Users from "./components/Users"
 import Login from "./pages/Login"
+import Profile from "./pages/Profile"
 import Signup from "./pages/Signup"
 
 
@@ -45,6 +46,9 @@ function App() {
           <IsAuthenticated>
             <Route path="/users">
               <Users />
+            </Route>
+            <Route path="/profile">
+              <Profile />
             </Route>
           </IsAuthenticated>
         </Switch>
