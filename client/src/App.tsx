@@ -43,7 +43,7 @@ function App() {
             <Login />
           </Route>
           <IsAuthenticated>
-            <Route exact path="/users">
+            <Route path="/users">
               <Users />
             </Route>
           </IsAuthenticated>
