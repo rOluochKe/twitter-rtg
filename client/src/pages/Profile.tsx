@@ -3,6 +3,7 @@ import React from "react"
 import { Link, useHistory } from "react-router-dom"
 import CreateProfile from "../components/CreateProfile"
 import UpdateProfile from "../components/UpdateProfile"
+import LeftNav from "../components/LeftNav"
 import "../styles/primary.css"
 import "../styles/profile.css"
 
@@ -31,7 +32,7 @@ function Profile() {
     <>
       <div className="primary">
         <div className="left">
-          Left Navigation
+          <LeftNav />
         </div>
         <div className="profile">
           <div className="profile-info">
