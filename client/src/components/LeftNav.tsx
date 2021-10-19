@@ -2,6 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import favicon from "../styles/assets/twitter-logo.png"
 import "../styles/leftNav.css"
+import Tweet from "./Tweet"
 
 function LeftNav() {
   return (
@@ -34,7 +35,7 @@ function LeftNav() {
           <i className="fa fa-ellipsis-h" aria-hidden="true" /> <span className="title">More</span>
         </h2>
       </Link>
-      Tweet
+      <Tweet />
       Logout
     </div>
   )
