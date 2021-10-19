@@ -50,6 +50,9 @@ function App() {
             <Route path="/profile">
               <Profile />
             </Route>
+            <Route path="/tweet/:id">
+              <Profile />
+            </Route>
           </IsAuthenticated>
         </Switch>
       </Router>
