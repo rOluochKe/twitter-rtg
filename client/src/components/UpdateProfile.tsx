@@ -70,8 +70,9 @@ function UpdateProfile() {
     const files = e.target.files
     const data = new FormData()
     data.append("file", files[0])
-    data.append("upload_preset", "darwin")
+    data.append("upload_preset", "dxpgwg9u5")
     setImageLoading(true)
+
     const res = await fetch(process.env.REACT_APP_CLOUDINARY_ENDPOINT, {
       method: "POST",
       body: data,
