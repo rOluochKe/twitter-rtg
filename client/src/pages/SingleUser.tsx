@@ -24,37 +24,37 @@ export const USER_QUERY = gql`
 `
 
 interface ParamType {
-  id: string
+    id: string
 }
 
 function SingleUser() {
   const history = useHistory()
-  const { id } = useParams<ParamType>()
+  const {id} = useParams<ParamType>()
 
   const { loading, error, data } = useQuery(USER_QUERY, {
-    variables: { id: parseInt(id) }
+      variables: {id: parseInt(id)}
   })
-  const { loading: meLoading, error: meError, data: meData } = useQuery(ME_QUERY)
+	const { loading: meLoading, error: meError, data: meData } = useQuery(ME_QUERY)
 
-  if (loading) return <p>Loading...</p>
-  if (error) return <p>{error.message}</p>
+	if (loading) return <p>Loading...</p>
+	if (error) return <p>{error.message}</p>
 
-  if (meLoading) return <p>Loading...</p>
-  if (meError) return <p>{meError.message}</p>
+	if (meLoading) return <p>Loading...</p>
+	if (meError) return <p>{meError.message}</p>
 
-  interface FollowerIds {
+interface FollowerIds {
     followId: number
     id: number
-  }
+}
 
-  const idOfFollowers = meData.me.Following.map((follow: FollowerIds) =>
-    follow.followId
-  )
-  const follows = meData.me.Following.map((follow: FollowerIds) =>
-    follow
-  )
+const idOfFollowers = meData.me.Following.map((follow: FollowerIds) => 
+follow.followId
+)
+const follows = meData.me.Following.map((follow: FollowerIds) => 
+follow
+)
 
-  const getFollowId = follows.filter((follow: any) => follow.followId === data.user.id)
+const getFollowId = follows.filter((follow: any) => follow.followId === data.user.id)
 
 
 
@@ -87,10 +87,10 @@ function SingleUser() {
               )}
             </div>
             <div className="make-profile">
-              {idOfFollowers.includes(data.user.id) ? (
-                <UnfollowUser id={getFollowId[0].id} />
-              ) : <FollowUser id={data.user.id} name={data.user.name} avatar={data.user.Profile.avatar} />
-              }
+                {idOfFollowers.includes(data.user.id) ? (
+                    <UnfollowUser id={getFollowId[0].id}/>
+                    ):<FollowUser id={data.user.id} name={data.user.name} avatar={data.user.Profile.avatar}/>
+                    }
             </div>
 
             <h3 className="name">{data.user.name}</h3>
@@ -113,7 +113,7 @@ function SingleUser() {
           </div>
         </div>
         <div className="right">
-          <PopularTweets />
+          <PopularTweets/>
         </div>
       </div>
     </>

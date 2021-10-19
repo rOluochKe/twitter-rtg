@@ -1,10 +1,11 @@
 :root {
   --main-color: #55abee;
   --button-hover-color: #228dcf;
-  --accent: #e1e8ed;
+  --accent: #E1E8ED;
 }
 
 /* @import "./styles/login.css"; */
+
 
 textarea {
   color: rgb(38, 50, 56);
@@ -21,8 +22,8 @@ textarea {
   margin-bottom: 27px;
 }
 
-textarea:focus {
+textarea:focus { 
   outline: none;
   border-color: var(--main-color);
-  box-shadow: 0 0 3px var(--main-color);
+  box-shadow: 0 0 3px var(--main-color)
 }

@@ -12,25 +12,25 @@ const DELETE_FOLLOW_USER_QUERY = gql`
 `
 
 interface Props {
-  id: string
+	id: string
 }
 
 export default function UnfollowUser({ id }: Props) {
-  const [deleteFollow] = useMutation(DELETE_FOLLOW_USER_QUERY, {
-    refetchQueries: [{ query: ME_QUERY }]
-  })
+	const [ deleteFollow ] = useMutation(DELETE_FOLLOW_USER_QUERY, {
+		refetchQueries: [ { query: ME_QUERY } ]
+	})
 
-  const handleUnFollow = async () => {
-    await deleteFollow({
-      variables: { id: parseInt(id) }
-    })
-  }
+	const handleUnFollow = async () => {
+		await deleteFollow({
+			variables: { id: parseInt(id) }
+		})
+	}
 
-  return (
-    <div>
-      <button onClick={handleUnFollow} className="edit-button">
-        Unfollow
-      </button>
-    </div>
-  )
+	return (
+		<div>
+			<button onClick={handleUnFollow} className="edit-button">
+				Unfollow
+			</button>
+		</div>
+	)
 }

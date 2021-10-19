@@ -99,14 +99,14 @@ function Profile() {
               </p>
             ) : null}
             <div className="followers">
-              <Following />
+            <Following/>
               <p>384 followers</p>
             </div>
           </div>
           <LikedTweets tweets={data.me} />
         </div>
         <div className="right">
-          <PopularTweets />
+          <PopularTweets/>
         </div>
       </div>
     </>

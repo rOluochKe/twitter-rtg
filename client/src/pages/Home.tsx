@@ -37,14 +37,14 @@ function Home() {
           <LeftNav />
         </div>
         <div className="home">
-          <div className="home-header">
-            <h3 className="home-title">Home</h3>
-          </div>
-          <HomPageTweet />
-          <AllTweets />
+            <div className="home-header">
+                <h3 className="home-title">Home</h3>
+            </div>
+                <HomPageTweet/>
+                <AllTweets/>
         </div>
         <div className="right">
-          <PopularTweets />
+          <PopularTweets/>
         </div>
       </div>
     </>

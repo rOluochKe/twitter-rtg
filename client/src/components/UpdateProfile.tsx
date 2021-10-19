@@ -5,7 +5,6 @@ import React, { useRef, useState } from "react"
 import Modal from "react-modal"
 import { ME_QUERY } from "../pages/Profile"
 import { customStyles } from "../styles/CustomModalStyles"
-
 const UPDATE_PROFILE = gql`
   mutation updateProfile(
     $id: Int!
@@ -44,12 +43,10 @@ function UpdateProfile() {
   const [updateProfile] = useMutation(UPDATE_PROFILE, {
     refetchQueries: [{ query: ME_QUERY }],
   })
-
   const [modalIsOpen, setIsOpen] = useState(false)
 
   if (loading) return <p>Loading...</p>
   if (error) return <p>{error.message}</p>
-
   const initialValues: ProfileValues = {
     id: data.me.Profile.id,
     bio: data.me.Profile.bio,
@@ -72,7 +69,6 @@ function UpdateProfile() {
     data.append("file", files[0])
     data.append("upload_preset", "dxpgwg9u5")
     setImageLoading(true)
-
     const res = await fetch(process.env.REACT_APP_CLOUDINARY_ENDPOINT, {
       method: "POST",
       body: data,

@@ -3,52 +3,34 @@
  * Do not make changes to this file directly
  */
 
+import * as Context from "../context"
 
-import type { Context } from "./../context"
-import type { core } from "nexus"
+
+
 declare global {
-  interface NexusGenCustomInputMethods<TypeName extends string> {
-    /**
-     * A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
-     */
-    date<FieldName extends string>(fieldName: FieldName, opts?: core.CommonInputFieldConfig<TypeName, FieldName>): void // "DateTime";
+  interface NexusGenCustomOutputProperties<TypeName extends string> {
+    model: NexusPrisma<TypeName, 'model'>
+    crud: any
   }
 }
-declare global {
-  interface NexusGenCustomOutputMethods<TypeName extends string> {
-    /**
-     * A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
-     */
-    date<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "DateTime";
-  }
-}
-
 
 declare global {
   interface NexusGen extends NexusGenTypes {}
 }
 
 export interface NexusGenInputs {
-  PostCreateInput: { // input type
-    content?: string | null; // String
-    title: string; // String!
+  CommentWhereUniqueInput: { // input type
+    id?: number | null; // Int
   }
-  PostOrderByUpdatedAtInput: { // input type
-    updatedAt: NexusGenEnums['SortOrder']; // SortOrder!
+  FollowingWhereUniqueInput: { // input type
+    id?: number | null; // Int
   }
-  UserCreateInput: { // input type
-    email: string; // String!
-    name?: string | null; // String
-    posts?: NexusGenInputs['PostCreateInput'][] | null; // [PostCreateInput!]
-  }
-  UserUniqueInput: { // input type
-    email?: string | null; // String
+  LikedTweetWhereUniqueInput: { // input type
     id?: number | null; // Int
   }
 }
 
 export interface NexusGenEnums {
-  SortOrder: "asc" | "desc"
 }
 
 export interface NexusGenScalars {
@@ -60,22 +42,41 @@ export interface NexusGenScalars {
   DateTime: any
 }
 
-export interface NexusGenObjects {
+export interface NexusGenRootTypes {
   AuthPayload: { // root type
     token?: string | null; // String
     user?: NexusGenRootTypes['User'] | null; // User
   }
-  Mutation: {};
-  Post: { // root type
+  Comment: { // root type
+    commentId?: number | null; // Int
     content?: string | null; // String
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     id: number; // Int!
-    published: boolean; // Boolean!
-    title: string; // String!
-    updatedAt: NexusGenScalars['DateTime']; // DateTime!
-    viewCount: number; // Int!
+  }
+  Following: { // root type
+    avatar: string; // String!
+    followId: number; // Int!
+    id: number; // Int!
+    name: string; // String!
+  }
+  LikedTweet: { // root type
+    id: number; // Int!
+    likedAt: NexusGenScalars['DateTime']; // DateTime!
+  }
+  Mutation: {};
+  Profile: { // root type
+    avatar?: string | null; // String
+    bio?: string | null; // String
+    id: number; // Int!
+    location?: string | null; // String
+    website?: string | null; // String
   }
   Query: {};
+  Tweet: { // root type
+    content?: string | null; // String
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    id: number; // Int!
+  }
   User: { // root type
     email: string; // String!
     id: number; // Int!
@@ -83,51 +84,87 @@ export interface NexusGenObjects {
   }
 }
 
-export interface NexusGenInterfaces {
+export interface NexusGenAllTypes extends NexusGenRootTypes {
+  CommentWhereUniqueInput: NexusGenInputs['CommentWhereUniqueInput'];
+  FollowingWhereUniqueInput: NexusGenInputs['FollowingWhereUniqueInput'];
+  LikedTweetWhereUniqueInput: NexusGenInputs['LikedTweetWhereUniqueInput'];
+  String: NexusGenScalars['String'];
+  Int: NexusGenScalars['Int'];
+  Float: NexusGenScalars['Float'];
+  Boolean: NexusGenScalars['Boolean'];
+  ID: NexusGenScalars['ID'];
+  DateTime: NexusGenScalars['DateTime'];
 }
-
-export interface NexusGenUnions {
-}
-
-export type NexusGenRootTypes = NexusGenObjects
-
-export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
 
 export interface NexusGenFieldTypes {
   AuthPayload: { // field return type
     token: string | null; // String
     user: NexusGenRootTypes['User'] | null; // User
   }
-  Mutation: { // field return type
-    createDraft: NexusGenRootTypes['Post'] | null; // Post
-    deletePost: NexusGenRootTypes['Post'] | null; // Post
-    incrementPostViewCount: NexusGenRootTypes['Post'] | null; // Post
-    login: NexusGenRootTypes['AuthPayload'] | null; // AuthPayload
-    signup: NexusGenRootTypes['AuthPayload'] | null; // AuthPayload
-    togglePublishPost: NexusGenRootTypes['Post'] | null; // Post
-  }
-  Post: { // field return type
-    author: NexusGenRootTypes['User'] | null; // User
+  Comment: { // field return type
+    Comment: NexusGenRootTypes['Comment'] | null; // Comment
+    commentId: number | null; // Int
     content: string | null; // String
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     id: number; // Int!
-    published: boolean; // Boolean!
-    title: string; // String!
-    updatedAt: NexusGenScalars['DateTime']; // DateTime!
-    viewCount: number; // Int!
+    User: NexusGenRootTypes['User'] | null; // User
+  }
+  Following: { // field return type
+    avatar: string; // String!
+    followId: number; // Int!
+    id: number; // Int!
+    name: string; // String!
+    User: NexusGenRootTypes['User'] | null; // User
+  }
+  LikedTweet: { // field return type
+    id: number; // Int!
+    likedAt: NexusGenScalars['DateTime']; // DateTime!
+    tweet: NexusGenRootTypes['Tweet']; // Tweet!
+  }
+  Mutation: { // field return type
+    createComment: NexusGenRootTypes['Comment'] | null; // Comment
+    createProfile: NexusGenRootTypes['Profile'] | null; // Profile
+    createReply: NexusGenRootTypes['Comment'] | null; // Comment
+    createTweet: NexusGenRootTypes['Tweet'] | null; // Tweet
+    deleteFollow: NexusGenRootTypes['Following'] | null; // Following
+    deleteLike: NexusGenRootTypes['LikedTweet'] | null; // LikedTweet
+    follow: NexusGenRootTypes['Following'] | null; // Following
+    likeTweet: NexusGenRootTypes['LikedTweet'] | null; // LikedTweet
+    login: NexusGenRootTypes['AuthPayload'] | null; // AuthPayload
+    signup: NexusGenRootTypes['AuthPayload'] | null; // AuthPayload
+    updateProfile: NexusGenRootTypes['Profile'] | null; // Profile
+  }
+  Profile: { // field return type
+    avatar: string | null; // String
+    bio: string | null; // String
+    id: number; // Int!
+    location: string | null; // String
+    website: string | null; // String
   }
   Query: { // field return type
-    allUsers: NexusGenRootTypes['User'][]; // [User!]!
-    draftsByUser: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
-    feed: NexusGenRootTypes['Post'][]; // [Post!]!
     me: NexusGenRootTypes['User'] | null; // User
-    postById: NexusGenRootTypes['Post'] | null; // Post
+    tweet: NexusGenRootTypes['Tweet'] | null; // Tweet
+    tweets: Array<NexusGenRootTypes['Tweet'] | null> | null; // [Tweet]
+    user: NexusGenRootTypes['User'] | null; // User
+    users: Array<NexusGenRootTypes['User'] | null> | null; // [User]
+  }
+  Tweet: { // field return type
+    author: NexusGenRootTypes['User'] | null; // User
+    comments: NexusGenRootTypes['Comment'][]; // [Comment!]!
+    content: string | null; // String
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    id: number; // Int!
+    likes: NexusGenRootTypes['LikedTweet'][]; // [LikedTweet!]!
   }
   User: { // field return type
+    comments: NexusGenRootTypes['Comment'][]; // [Comment!]!
     email: string; // String!
+    Following: NexusGenRootTypes['Following'][]; // [Following!]!
     id: number; // Int!
+    likedTweet: NexusGenRootTypes['LikedTweet'][]; // [LikedTweet!]!
     name: string | null; // String
-    posts: NexusGenRootTypes['Post'][]; // [Post!]!
+    Profile: NexusGenRootTypes['Profile'] | null; // Profile
+    tweets: NexusGenRootTypes['Tweet'][]; // [Tweet!]!
   }
 }
 
@@ -136,49 +173,106 @@ export interface NexusGenFieldTypeNames {
     token: 'String'
     user: 'User'
   }
-  Mutation: { // field return type name
-    createDraft: 'Post'
-    deletePost: 'Post'
-    incrementPostViewCount: 'Post'
-    login: 'AuthPayload'
-    signup: 'AuthPayload'
-    togglePublishPost: 'Post'
-  }
-  Post: { // field return type name
-    author: 'User'
+  Comment: { // field return type name
+    Comment: 'Comment'
+    commentId: 'Int'
     content: 'String'
     createdAt: 'DateTime'
     id: 'Int'
-    published: 'Boolean'
-    title: 'String'
-    updatedAt: 'DateTime'
-    viewCount: 'Int'
+    User: 'User'
   }
-  Query: { // field return type name
-    allUsers: 'User'
-    draftsByUser: 'Post'
-    feed: 'Post'
-    me: 'User'
-    postById: 'Post'
-  }
-  User: { // field return type name
-    email: 'String'
+  Following: { // field return type name
+    avatar: 'String'
+    followId: 'Int'
     id: 'Int'
     name: 'String'
-    posts: 'Post'
+    User: 'User'
+  }
+  LikedTweet: { // field return type name
+    id: 'Int'
+    likedAt: 'DateTime'
+    tweet: 'Tweet'
+  }
+  Mutation: { // field return type name
+    createComment: 'Comment'
+    createProfile: 'Profile'
+    createReply: 'Comment'
+    createTweet: 'Tweet'
+    deleteFollow: 'Following'
+    deleteLike: 'LikedTweet'
+    follow: 'Following'
+    likeTweet: 'LikedTweet'
+    login: 'AuthPayload'
+    signup: 'AuthPayload'
+    updateProfile: 'Profile'
+  }
+  Profile: { // field return type name
+    avatar: 'String'
+    bio: 'String'
+    id: 'Int'
+    location: 'String'
+    website: 'String'
+  }
+  Query: { // field return type name
+    me: 'User'
+    tweet: 'Tweet'
+    tweets: 'Tweet'
+    user: 'User'
+    users: 'User'
+  }
+  Tweet: { // field return type name
+    author: 'User'
+    comments: 'Comment'
+    content: 'String'
+    createdAt: 'DateTime'
+    id: 'Int'
+    likes: 'LikedTweet'
+  }
+  User: { // field return type name
+    comments: 'Comment'
+    email: 'String'
+    Following: 'Following'
+    id: 'Int'
+    likedTweet: 'LikedTweet'
+    name: 'String'
+    Profile: 'Profile'
+    tweets: 'Tweet'
   }
 }
 
 export interface NexusGenArgTypes {
   Mutation: {
-    createDraft: { // args
-      data: NexusGenInputs['PostCreateInput']; // PostCreateInput!
-    }
-    deletePost: { // args
+    createComment: { // args
+      content: string; // String!
       id: number; // Int!
     }
-    incrementPostViewCount: { // args
+    createProfile: { // args
+      avatar?: string | null; // String
+      bio?: string | null; // String
+      location?: string | null; // String
+      website?: string | null; // String
+    }
+    createReply: { // args
+      commentId?: number | null; // Int
+      content: string; // String!
       id: number; // Int!
+    }
+    createTweet: { // args
+      content?: string | null; // String
+    }
+    deleteFollow: { // args
+      id: number; // Int!
+    }
+    deleteLike: { // args
+      id: number; // Int!
+    }
+    follow: { // args
+      avatar: string; // String!
+      followId: number; // Int!
+      name: string; // String!
+    }
+    likeTweet: { // args
+      id?: number | null; // Int
     }
     login: { // args
       email: string; // String!
@@ -189,66 +283,84 @@ export interface NexusGenArgTypes {
       name?: string | null; // String
       password: string; // String!
     }
-    togglePublishPost: { // args
-      id: number; // Int!
+    updateProfile: { // args
+      avatar?: string | null; // String
+      bio?: string | null; // String
+      id?: number | null; // Int
+      location?: string | null; // String
+      website?: string | null; // String
     }
   }
   Query: {
-    draftsByUser: { // args
-      userUniqueInput: NexusGenInputs['UserUniqueInput']; // UserUniqueInput!
+    tweet: { // args
+      id?: number | null; // Int
     }
-    feed: { // args
-      orderBy?: NexusGenInputs['PostOrderByUpdatedAtInput'] | null; // PostOrderByUpdatedAtInput
-      searchString?: string | null; // String
-      skip?: number | null; // Int
-      take?: number | null; // Int
-    }
-    postById: { // args
+    user: { // args
       id?: number | null; // Int
     }
   }
-}
-
-export interface NexusGenAbstractTypeMembers {
-}
-
-export interface NexusGenTypeInterfaces {
-}
-
-export type NexusGenObjectNames = keyof NexusGenObjects;
-
-export type NexusGenInputNames = keyof NexusGenInputs;
-
-export type NexusGenEnumNames = keyof NexusGenEnums;
-
-export type NexusGenInterfaceNames = never;
-
-export type NexusGenScalarNames = keyof NexusGenScalars;
-
-export type NexusGenUnionNames = never;
-
-export type NexusGenObjectsUsingAbstractStrategyIsTypeOf = never;
-
-export type NexusGenAbstractsUsingStrategyResolveType = never;
-
-export type NexusGenFeaturesConfig = {
-  abstractTypeStrategies: {
-    isTypeOf: false
-    resolveType: true
-    __typename: false
+  Tweet: {
+    comments: { // args
+      after?: NexusGenInputs['CommentWhereUniqueInput'] | null; // CommentWhereUniqueInput
+      before?: NexusGenInputs['CommentWhereUniqueInput'] | null; // CommentWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+    }
+    likes: { // args
+      after?: NexusGenInputs['LikedTweetWhereUniqueInput'] | null; // LikedTweetWhereUniqueInput
+      before?: NexusGenInputs['LikedTweetWhereUniqueInput'] | null; // LikedTweetWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+    }
+  }
+  User: {
+    comments: { // args
+      after?: NexusGenInputs['CommentWhereUniqueInput'] | null; // CommentWhereUniqueInput
+      before?: NexusGenInputs['CommentWhereUniqueInput'] | null; // CommentWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+    }
+    Following: { // args
+      after?: NexusGenInputs['FollowingWhereUniqueInput'] | null; // FollowingWhereUniqueInput
+      before?: NexusGenInputs['FollowingWhereUniqueInput'] | null; // FollowingWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+    }
+    likedTweet: { // args
+      after?: NexusGenInputs['LikedTweetWhereUniqueInput'] | null; // LikedTweetWhereUniqueInput
+      before?: NexusGenInputs['LikedTweetWhereUniqueInput'] | null; // LikedTweetWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+    }
   }
 }
 
+export interface NexusGenAbstractResolveReturnTypes {
+}
+
+export interface NexusGenInheritedFields {}
+
+export type NexusGenObjectNames = "AuthPayload" | "Comment" | "Following" | "LikedTweet" | "Mutation" | "Profile" | "Query" | "Tweet" | "User";
+
+export type NexusGenInputNames = "CommentWhereUniqueInput" | "FollowingWhereUniqueInput" | "LikedTweetWhereUniqueInput";
+
+export type NexusGenEnumNames = never;
+
+export type NexusGenInterfaceNames = never;
+
+export type NexusGenScalarNames = "Boolean" | "DateTime" | "Float" | "ID" | "Int" | "String";
+
+export type NexusGenUnionNames = never;
+
 export interface NexusGenTypes {
-  context: Context;
+  context: Context.Context;
   inputTypes: NexusGenInputs;
   rootTypes: NexusGenRootTypes;
-  inputTypeShapes: NexusGenInputs & NexusGenEnums & NexusGenScalars;
   argTypes: NexusGenArgTypes;
   fieldTypes: NexusGenFieldTypes;
   fieldTypeNames: NexusGenFieldTypeNames;
   allTypes: NexusGenAllTypes;
-  typeInterfaces: NexusGenTypeInterfaces;
+  inheritedFields: NexusGenInheritedFields;
   objectNames: NexusGenObjectNames;
   inputNames: NexusGenInputNames;
   enumNames: NexusGenEnumNames;
@@ -259,24 +371,15 @@ export interface NexusGenTypes {
   allOutputTypes: NexusGenTypes['objectNames'] | NexusGenTypes['enumNames'] | NexusGenTypes['unionNames'] | NexusGenTypes['interfaceNames'] | NexusGenTypes['scalarNames'];
   allNamedTypes: NexusGenTypes['allInputTypes'] | NexusGenTypes['allOutputTypes']
   abstractTypes: NexusGenTypes['interfaceNames'] | NexusGenTypes['unionNames'];
-  abstractTypeMembers: NexusGenAbstractTypeMembers;
-  objectsUsingAbstractStrategyIsTypeOf: NexusGenObjectsUsingAbstractStrategyIsTypeOf;
-  abstractsUsingStrategyResolveType: NexusGenAbstractsUsingStrategyResolveType;
-  features: NexusGenFeaturesConfig;
+  abstractResolveReturn: NexusGenAbstractResolveReturnTypes;
 }
 
 
 declare global {
   interface NexusGenPluginTypeConfig<TypeName extends string> {
   }
-  interface NexusGenPluginInputTypeConfig<TypeName extends string> {
-  }
   interface NexusGenPluginFieldConfig<TypeName extends string, FieldName extends string> {
   }
-  interface NexusGenPluginInputFieldConfig<TypeName extends string, FieldName extends string> {
-  }
   interface NexusGenPluginSchemaConfig {
-  }
-  interface NexusGenPluginArgConfig {
   }
 }

@@ -115,7 +115,6 @@ export const Mutation = mutationType({
 				})
 			}
 		})
-
 		t.field("likeTweet", {
 			type: "LikedTweet",
 			args: {
@@ -132,7 +131,6 @@ export const Mutation = mutationType({
 				})
 			}
 		})
-
 		t.field("deleteLike", {
 			type: "LikedTweet",
 			args: {
@@ -146,7 +144,6 @@ export const Mutation = mutationType({
 				})
 			}
 		})
-
 		t.field("createComment", {
 			type: "Comment",
 			args: {
@@ -165,7 +162,6 @@ export const Mutation = mutationType({
 				})
 			}
 		})
-
 		t.field("createReply", {
 			type: "Comment",
 			args: {
@@ -186,7 +182,6 @@ export const Mutation = mutationType({
 				})
 			}
 		})
-
 		t.field("follow", {
 			type: "Following",
 			args: {
@@ -207,7 +202,6 @@ export const Mutation = mutationType({
 				})
 			}
 		})
-
 		t.field("deleteFollow", {
 			type: "Following",
 			args: {

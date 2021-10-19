@@ -15,50 +15,50 @@ const CREATE_TWEET_MUTATION = gql`
 `
 
 interface TweetValues {
-  content: string
+	content: string
 }
 
 export default function HomPageTweet() {
-  const [createTweet] = useMutation(CREATE_TWEET_MUTATION, {
-    refetchQueries: [{ query: TWEETS_QUERY }]
-  })
+	const [ createTweet ] = useMutation(CREATE_TWEET_MUTATION, {
+		refetchQueries: [ { query: TWEETS_QUERY } ]
+	})
 
-  const initialValues: TweetValues = {
-    content: ""
-  }
+	const initialValues: TweetValues = {
+		content: ""
+	}
 
-  const validationSchema = Yup.object({
-    content: Yup.string()
-      .required()
-      .min(1, "Must be more than 1 character")
-      .max(256, "Must be less than 257 characters")
-  })
+	const validationSchema = Yup.object({
+		content: Yup.string()
+			.required()
+			.min(1, "Must be more than 1 character")
+			.max(256, "Must be less than 257 characters")
+	})
 
-  return (
-    <div className="home-page-tweet">
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={async (values, { setSubmitting, resetForm }) => {
-          setSubmitting(true)
-          await createTweet({
-            variables: values
-          })
+	return (
+		<div className="home-page-tweet">
+			<Formik
+				initialValues={initialValues}
+				validationSchema={validationSchema}
+				onSubmit={async (values, { setSubmitting, resetForm }) => {
+					setSubmitting(true)
+					await createTweet({
+						variables: values
+					})
 
-          setSubmitting(false)
-          resetForm()
-        }}
-      >
-        <Form>
-          <Field name="content" type="text" as="textarea" placeholder="What's happening..." />
-          <ErrorMessage name="content" component={"div"} />
+					setSubmitting(false)
+					resetForm()
+				}}
+			>
+				<Form>
+					<Field name="content" type="text" as="textarea" placeholder="What's happening..." />
+					<ErrorMessage name="content" component={"div"} />
 
-          <button type="submit" className="home-tweet-button">
-            <span>Tweet</span>
-          </button>
-        </Form>
-      </Formik>
-      <div className="footer" />
-    </div>
-  )
+					<button type="submit" className="home-tweet-button">
+						<span>Tweet</span>
+					</button>
+				</Form>
+			</Formik>
+			<div className="footer" />
+		</div>
+	)
 }

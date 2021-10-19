@@ -19,6 +19,7 @@ export const TWEET_QUERY = gql`
         id
         avatar
       }
+
       }
       comments {
           id 
@@ -38,28 +39,28 @@ export const TWEET_QUERY = gql`
 `
 
 interface ParamType {
-  id: string
+    id: string
 }
 interface CommentType {
-  id: number
-  content: string
-  createdAt: Date
-  User: {
     id: number
-    name: string
-    Profile: {
-      id: number
-      avatar: string
+    content: string
+    createdAt: Date
+    User: {
+        id: number
+        name: string
+        Profile: {
+            id: number
+            avatar: string
+        }
     }
-  }
 }
 
 function SingleTweet() {
   const history = useHistory()
-  const { id } = useParams<ParamType>()
+  const {id} = useParams<ParamType>()
 
   const { loading, error, data } = useQuery(TWEET_QUERY, {
-    variables: { id: parseInt(id) }
+      variables: {id: parseInt(id)}
   })
 
   if (loading) return <p>Loading...</p>
@@ -71,40 +72,40 @@ function SingleTweet() {
           <LeftNav />
         </div>
         <div className="home">
-          <div className="home-header">
+            <div className="home-header">
             <span className="back-arrow" onClick={() => history.goBack()}>
-              <i className="fa fa-arrow-left" aria-hidden="true"></i>
-            </span>
-            <h3 className="home-title">Tweet</h3>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 8fr", marginTop: "10px", marginLeft: '10px' }}>
-            <img src={data.tweet.author.Profile.avatar} style={{ width: "40px", borderRadius: "50%" }} alt="avatar" />
-            <h5>{data.tweet.author.name}</h5>
-          </div>
-          <p
-            style={{
-              marginLeft: "20px",
-              borderLeft: "1px solid var(--accent)",
-              paddingLeft: "20px",
-              height: "50px",
-              marginTop: 0
-            }}
-          >
-            {data.tweet.content}
-          </p>
-          {data.tweet.comments.map((comment: CommentType) => (
-            <>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 8fr", marginTop: "10px", marginLeft: '10px' }}>
-                <img src={comment.User.Profile.avatar} style={{ width: "40px", borderRadius: "50%" }} alt="avatar" />
-                <h5>{comment.User.name}</h5>
-              </div>
-              <p>{comment.content}</p>
-              <CreateReply name={comment.User.name} avatar={comment.User.Profile.avatar} id={data.tweet.id} comment={comment.content} commentId={comment.id} />
-            </>
-          ))}
+                <i className="fa fa-arrow-left" aria-hidden="true"></i>
+              </span>
+                <h3 className="home-title">Tweet</h3>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 8fr", marginTop: "10px", marginLeft: '10px' }}>
+					<img src={data.tweet.author.Profile.avatar} style={{ width: "40px", borderRadius: "50%" }} alt="avatar" />
+					<h5>{data.tweet.author.name}</h5>
+				</div>
+				<p
+					style={{
+						marginLeft: "20px",
+						borderLeft: "1px solid var(--accent)",
+						paddingLeft: "20px",
+						height: "50px",
+						marginTop: 0
+					}}
+				>
+					{data.tweet.content}
+				</p>
+                {data.tweet.comments.map((comment: CommentType) => (
+                    <>
+                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 8fr", marginTop: "10px", marginLeft: '10px' }}>
+               <img src={comment.User.Profile.avatar} style={{ width: "40px", borderRadius: "50%" }} alt="avatar" />
+               <h5>{comment.User.name}</h5>
+           </div>
+           <p>{comment.content}</p>
+            <CreateReply name={comment.User.name} avatar={comment.User.Profile.avatar} id={data.tweet.id} comment={comment.content} commentId={comment.id}/>
+                    </>
+                ))}
         </div>
         <div className="right">
-          <PopularTweets />
+          <PopularTweets/>
         </div>
       </div>
     </>
